@@ -12,23 +12,38 @@ const { NODE_ENV, PORT, JWT_SECRET } = process.env;
 
 console.log(process.env.NODE_ENV);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const allowedCors = [
+  "https://tripleten.tk",
+  "http://tripleten.tk",
+  "localhost:3000",
+];
 
-//CORS
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "https://www.cicnos.mooo.com");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
+  const { origin } = req.headers;
+
+  // Verificar si el origen está en la lista de orígenes permitidos
+  if (allowedCors.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  // Manejar solicitudes preflight (OPTIONS)
+  if (req.method === "OPTIONS") {
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-Requested-With,content-type,Authorization"
+    );
+    return res.end();
+  }
+
   next();
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routers
 

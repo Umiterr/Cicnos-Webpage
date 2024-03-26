@@ -12,12 +12,9 @@ function classNames(...classes) {
 
 export default function Overview(props) {
   const { products } = props;
-
   const { productId } = useParams();
 
-  const product = products.find(
-    (product) => product.id === parseInt(productId)
-  );
+  const product = products.find((product) => product.productId === productId);
 
   if (!product) {
     return <div>Producto no encontrado</div>;
@@ -30,14 +27,13 @@ export default function Overview(props) {
     products: [
       {
         name: product.name,
-        quantity: product.quantity,
+        quantity: 1,
         price: product.price,
         images: product.images,
         colors: product.colors,
         details: {
           category: product.category,
           images: product.images,
-
           description: product.description,
           details: product.details,
         },
@@ -77,7 +73,7 @@ export default function Overview(props) {
                         <span className="sr-only">{image.name}</span>
                         <span className="absolute inset-0 overflow-hidden rounded-md">
                           <img
-                            src={product.images[0].name}
+                            src={product.images[0].src}
                             alt={product.images[0].alt}
                             className="h-full w-full object-cover object-center"
                           />
@@ -100,7 +96,7 @@ export default function Overview(props) {
               {product.images.map((image) => (
                 <Tab.Panel key={image.id}>
                   <img
-                    src={product.images[0].name}
+                    src={product.images[0].src}
                     alt={product.images[0].alt}
                     className="h-full w-full object-cover object-center sm:rounded-lg"
                   />

@@ -61,7 +61,7 @@ module.exports.addProduct = async (req, res) => {
     }
 
     const newProduct = await Product.create({
-      id: req.body.id,
+      productId: req.body.id,
       name: req.body.name,
       price: req.body.price,
       stock: req.body.stock || 0,
