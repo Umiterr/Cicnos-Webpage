@@ -32,10 +32,4 @@ La carpeta "frontend" contiene todos los archivos y recursos necesarios para el 
 - JavaScript
 - Vite
 
----
 
-## Web
-
-La página está desplegada en:
-
-[https://www.cicnos.mooo.com](https://www.cicnos.mooo.com)
