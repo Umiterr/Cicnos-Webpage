@@ -61,19 +61,12 @@ module.exports.addProduct = async (req, res) => {
     }
 
     const newProduct = await Product.create({
-      id: req.body.id,
-      name: req.body.title,
+      productId: req.body.id,
+      name: req.body.name,
       price: req.body.price,
-      stock: req.body.stock || 0, // Si no hay valor de stock, se establece como 0
+      stock: req.body.stock || 0,
       category: req.body.category,
-      images: [
-        {
-          id: 1,
-          name: "Main Image",
-          src: req.body.image,
-          alt: "Main image of the product",
-        },
-      ],
+      images: req.body.images || [],
       colors: req.body.colors || [],
       description: req.body.description || "",
       details: req.body.details || [],
